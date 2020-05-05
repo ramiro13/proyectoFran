@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,4 +9,15 @@
     <h1>INDEX</h1>
     <a href="ejemplo">EJEMPLO</a>
 </body>
-</html>
+</html> -->
+
+<?php
+
+require_once('db/conexion.php');
+require_once('controllers/login_controller.php');
+
+$estudiante_controller = new login_controller();
+
+$estudiante_controller->login();
+
+?>
