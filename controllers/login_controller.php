@@ -15,23 +15,26 @@ class login_controller
     {
 
         if ($this->login_model->userIsAuth()) {
-            include_once('views/header.php');
             include_once('views/ejemplo.php');
-            include_once('views/footer.php');
         } else {
 
             if (isset($_POST['username'])) {
                 $txtCorreo = $_POST['username'];
                 $txtClave = $_POST['password'];
                 if ($this->login_model->login($txtCorreo, $txtClave)) {
-                    include_once('views/header.php');
                     include_once('views/ejemplo.php');
-                    include_once('views/footer.php');
                 } else {
                     include_once('views/login.php');
                 }
+            } else {
+                include_once('views/login.php');
             }
+        }
+    }
 
+    function userIsAuth()
+    {
+        if (!$this->login_model->userIsAuth()) {
             include_once('views/login.php');
         }
     }

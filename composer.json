@@ -1,0 +1,9 @@
+{
+    "require": {
+        "datatables/datatables": "^1.10",
+        "twbs/bootstrap": "4.4.1",
+        "onokumus/metismenu": "^3.0",
+        "fortawesome/font-awesome": "^5.13",
+        "components/jquery": "^3.5"
+    }
+}
