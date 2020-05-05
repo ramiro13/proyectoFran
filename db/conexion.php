@@ -3,8 +3,8 @@ class Database
 {
     private static $dbName = 'testPHP_DB' ;
     private static $dbHost = 'localhost:3306' ;
-    private static $dbUsername = 'mysqlUser';
-    private static $dbUserPassword = '9iOHzrY5lJzOwqll';
+    private static $dbUsername = 'root';
+    private static $dbUserPassword = 'secret';
      
     private static $cont  = null;
      

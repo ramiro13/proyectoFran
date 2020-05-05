@@ -10,10 +10,10 @@ class login_model{
     
     function userIsAuth()
     {
-        // // Si no hay una sesi�n iniciada, iniciar sesion
-        // if (!isset($_SESSION)) {
-        //     session_start();
-        // }
+        // Si no hay una sesi�n iniciada, iniciar sesion
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         // If existe la variable de sesi�n "user" entonces es que un usuario ha iniciado sesi�n
         if (isset($_SESSION['user'])) {
             return true;

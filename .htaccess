@@ -1,5 +1,10 @@
 Options +FollowSymLinks
-RewriteEngine on
-RewriteBase /proyectofran
-RewriteRule ^/$ index.php [L]
-RewriteRule ^ejemplo$ views/ejemplo.php [L]
+RewriteEngine On
+
+#admin
+RewriteRule ^logout$ res/php/logout.php [QSA] 
+RewriteRule ^loginadmin$ views/admin/login_.php [QSA] 
+RewriteRule ^dashboard$ index.php [QSA] 
+RewriteRule ^operarios$ res/php/operarios.php [QSA] 
+
+RewriteRule ^ejemplo$ view/ejemplo.php [QSA] 
