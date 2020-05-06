@@ -1,5 +1,5 @@
 <?php
-require_once('models/login_model.php');
+require_once(dirname(dirname(__FILE__)) . '/models/login_model.php');
 
 class login_controller
 {
@@ -15,27 +15,34 @@ class login_controller
     {
 
         if ($this->login_model->userIsAuth()) {
-            include_once('views/ejemplo.php');
+            include_once(dirname(dirname(__FILE__)) .'/views/ejemplo.php');
         } else {
 
             if (isset($_POST['username'])) {
                 $txtCorreo = $_POST['username'];
                 $txtClave = $_POST['password'];
                 if ($this->login_model->login($txtCorreo, $txtClave)) {
-                    include_once('views/ejemplo.php');
+                    include_once(dirname(dirname(__FILE__)) .'/views/ejemplo.php');
                 } else {
-                    include_once('views/login.php');
+                    include_once(dirname(dirname(__FILE__)) .'/views/login.php');
                 }
             } else {
-                include_once('views/login.php');
+                include_once(dirname(dirname(__FILE__)) .'/views/login.php');
             }
         }
     }
 
     function userIsAuth()
     {
-        if (!$this->login_model->userIsAuth()) {
-            include_once('views/login.php');
-        }
+        return $this->login_model->userIsAuth();
+    }
+
+    function logout()
+    {
+        $this->login_model->logout();
+
+        echo dirname(dirname(__FILE__));
+
+        header("location:login"); 
     }
 }

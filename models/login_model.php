@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(dirname(__FILE__)) . '/db/conexion.php');
 
 class login_model{
 
@@ -11,9 +12,9 @@ class login_model{
     function userIsAuth()
     {
         // // Si no hay una sesi�n iniciada, iniciar sesion
-        // if (!isset($_SESSION)) {
-        //     session_start();
-        // }
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         // If existe la variable de sesi�n "user" entonces es que un usuario ha iniciado sesi�n
         if (isset($_SESSION['user'])) {
             return true;
@@ -24,9 +25,6 @@ class login_model{
 
     function login($Correo, $Clave)
     {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
         $stmt = $this->db->prepare("SELECT idUsuario,Correo,idPerfil FROM usuarios where correo = :correo and clave = :clave");
         $stmt->bindParam(':correo', $Correo);
         $stmt->bindParam(':clave', $Clave);

@@ -1,5 +1,7 @@
 Options +FollowSymLinks
 RewriteEngine on
-RewriteBase /proyectofran
-RewriteRule ^/$ index.php [L]
+RewriteBase /proyectofran/
+RewriteRule ^inicio$ index.php [L]
 RewriteRule ^ejemplo$ views/ejemplo.php [L]
+RewriteRule ^logout$ views/logout.php [L]
+RewriteRule ^login$ index.php [L]
