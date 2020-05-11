@@ -19,6 +19,29 @@
 			<span>Inicio</span></a>
 	</li>
 
+	<!-- Nav Item - Pages Collapse Menu -->
+	<?php if (isset($_SESSION['admin'])) : ?>
+
+		<!-- Divider -->
+		<hr class="sidebar-divider d-none d-md-block">
+
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+				<i class="fas fa-fw fa-cog"></i>
+				<span>Administración</span>
+			</a>
+			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<h6 class="collapse-header">Custom Components:</h6>
+					<a class="collapse-item" href="<?= base_url ?>usuario/index">Usuarios</a>
+					<a class="collapse-item" href="<?= base_url ?>categoria">Categorías</a>
+					<a class="collapse-item" href="<?= base_url ?>accion">Acciones</a>
+					<a class="collapse-item" href="<?= base_url ?>cliente">Clientes</a>
+				</div>
+			</div>
+		</li>
+	<?php endif; ?>
+
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
 

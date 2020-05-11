@@ -6,7 +6,7 @@ class usuarioController
 
 	public function index()
 	{
-		echo "Controlador Usuarios, Acción index";
+		require_once 'views/usuario/index.php';
 	}
 
 	public function registro()
