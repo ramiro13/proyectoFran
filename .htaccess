@@ -1,7 +1,14 @@
 Options +FollowSymLinks
 RewriteEngine on
 RewriteBase /proyectofran/
+
+ErrorDocument 404 http://localhost/proyectofran/error/index
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^(.*)/(.*) index.php?controller=$1&action=$2
+
 RewriteRule ^inicio$ index.php [L]
 RewriteRule ^ejemplo$ views/ejemplo.php [L]
-RewriteRule ^logout$ views/logout.php [L]
+RewriteRule ^logout$ controllers/logout.php [L]
+RewriteRule ^registro$ views/usuario/registro.php [L]
 RewriteRule ^login$ index.php [L]
