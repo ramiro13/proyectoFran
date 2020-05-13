@@ -1,14 +1,15 @@
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Usuarios</h1>
+<h1 class="h3 mb-2 text-gray-800">categorías</h1>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Consulta Usuarios
-            <a href="<?= base_url ?>usuario/editar" class="btn btn-warning btn-circle btn-sm">
+        <h6 class="m-0 font-weight-bold text-primary">Consulta categorías
+            <a href="<?= base_url ?>categoria/editar" class="btn btn-warning btn-circle btn-sm">
                 <i class="fas fa-plus"></i>
             </a>
         </h6>
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -16,35 +17,29 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Rol</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Rol</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php while ($usu = $usuarios->fetch_object()) : ?>
+                    <?php while ($cat = $categorias->fetch_object()) : ?>
                         <tr>
-                            <td><?= $usu->nombre; ?></td>
-                            <td><?= $usu->apellidos; ?></td>
-                            <td><?= $usu->email; ?></td>
-                            <td><?= $usu->rol; ?></td>
+                            <td><?= $cat->nombre; ?></td>
                             <td>
-                                <a href="<?= base_url ?>usuario/ver&id=<?= $usu->id ?>" class="btn btn-info btn-circle btn-sm">
+                                <a href="<?= base_url ?>categoria/ver&id=<?= $cat->id ?>" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
 
-                                <a href="<?= base_url ?>usuario/editar&id=<?= $usu->id ?>" class="btn btn-success btn-circle btn-sm">
+                                <a href="<?= base_url ?>categoria/editar&id=<?= $cat->id ?>" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="<?= base_url ?>categoria/eliminar&id=<?= $cat->id ?>" class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
                                 </a>
                             </td>
                         </tr>

@@ -6,7 +6,38 @@ class usuarioController
 
 	public function index()
 	{
+		$usuario = new Usuario();
+		$usuarios = $usuario->getAll();
 		require_once 'views/usuario/index.php';
+	}
+
+	public function ver()
+	{
+		if (isset($_GET['id'])) {
+			$id = $_GET['id'];
+
+			$usuario = new Usuario();
+			$usuario->setId($id);
+
+			$usuarios = $usuario->getOne();
+
+			require_once 'views/usuario/ver.php';
+		}
+	}
+
+	public function editar()
+	{
+		if (isset($_GET['id'])) {
+			$id = $_GET['id'];
+
+			$usuario = new Usuario();
+			$usuario->setId($id);
+
+			$usuarios = $usuario->getOne();
+
+		} 
+		
+		require_once 'views/usuario/crear.php';
 	}
 
 	public function registro()
@@ -18,7 +49,7 @@ class usuarioController
 
 	public function save()
 	{
-		if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+		if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 		if (isset($_POST)) {
 
@@ -27,6 +58,7 @@ class usuarioController
 			$email = isset($_POST['email']) ? $_POST['email'] : false;
 			$password = isset($_POST['password']) ? $_POST['password'] : false;
 			$repeatPassword = isset($_POST['repeatPassword']) ? $_POST['repeatPassword'] : false;
+			$rol = isset($_POST['rol']) ? $_POST['rol'] : 'user';
 
 			if ($password && $repeatPassword && $password != $repeatPassword) {
 				$_SESSION['register'] = "el password no coincide";
@@ -38,6 +70,7 @@ class usuarioController
 					$usuario->setApellidos($apellidos);
 					$usuario->setEmail($email);
 					$usuario->setPassword($password);
+					$usuario->setRol($rol);
 
 					$save = $usuario->save();
 					if ($save) {
@@ -52,11 +85,69 @@ class usuarioController
 		} else {
 			$_SESSION['register'] = "failed";
 		}
-		// require_once base_url . 'views/usuario/registro.php';
+
 		header("Location:" . base_url . 'registro');
-		// header("Location:" . base_url . 'usuario/registro');
-		
-		// exit();
+	}
+
+	public function saveCrud()
+	{
+		Utils::isAdmin();
+		if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+
+		$respuesta['mensaje'] = "";
+		$respuesta['esError'] = 0;
+
+		if (isset($_POST)) {
+
+			$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
+			$apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
+			$email = isset($_POST['email']) ? $_POST['email'] : false;
+			$password = isset($_POST['password']) ? $_POST['password'] : false;
+			$rol = isset($_POST['rol']) ? $_POST['rol'] : 'user';
+			$id = isset($_POST['id']) ? $_POST['id'] : 0;
+
+
+			if ($nombre && $apellidos && $email && $password) {
+				$usuario = new Usuario();
+				$usuario->setNombre($nombre);
+				$usuario->setApellidos($apellidos);
+				$usuario->setEmail($email);
+				$usuario->setPassword($password);
+				$usuario->setRol($rol);
+				$usuario->setId($id);
+
+				$usuarios = new stdClass();
+				$usuarios->nombre = $nombre;
+				$usuarios->apellidos = $apellidos;
+				$usuarios->email = $email;
+				$usuarios->password = $password;
+				$usuarios->rol = $rol;
+				$usuarios->id = $id;
+
+				if($id === 0){
+				$save = $usuario->save();
+				}
+				else{
+					$save = $usuario->edit();
+				}
+				if ($save) {
+					$respuesta['mensaje'] = "complete";
+
+				} else {
+					$respuesta['mensaje'] = "failed";
+					$respuesta['esError'] = 1;
+				}
+			} else {
+				$respuesta['mensaje'] = "failed";
+				$respuesta['esError'] = 1;
+			}
+		} else {
+			$respuesta['mensaje'] = "failed";
+			$respuesta['esError'] = 1;
+		}
+
+		 require_once 'views/usuario/crear.php';
+		// $this->editar();
 	}
 
 	public function login()

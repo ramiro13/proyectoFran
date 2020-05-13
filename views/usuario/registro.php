@@ -44,7 +44,7 @@ require_once base_url . 'helpers/utils.php';
 							<form class="user" action="<?= base_url ?>usuario/save" method="post">
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="nombre" name="nombre" placeholder="Nombres" required value="<?= isset($_POST['nombre']) ? $_POST['nombre'] : ''; ?>">
+										<input type="text" class="form-control form-control-user" id="nombre" name="nombre" placeholder="Nombres" required value="<?= isset($nombre) ? $nombre : ''; ?>">
 									</div>
 									<div class="col-sm-6">
 										<input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellidos" required>

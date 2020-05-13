@@ -88,11 +88,30 @@ class Usuario
 
 	public function save()
 	{
-		$sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getPassword()}', 'user', null);";
+		$sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getPassword()}', '{$this->getRol()}', null);";
 		$save = $this->db->query($sql);
 
 		$result = false;
 		if ($save) {
+			$result = true;
+		}
+		return $result;
+	}
+
+	public function edit(){
+		$sql = "UPDATE usuarios SET nombre='{$this->getNombre()}', apellidos='{$this->getApellidos()}', email='{$this->getEmail()}', rol='{$this->getRol()}', password='{$this->getPassword()}'  ";
+		
+		if($this->getImagen() != null){
+			$sql .= ", imagen='{$this->getImagen()}'";
+		}
+		
+		$sql .= " WHERE id={$this->id};";
+		
+		
+		$save = $this->db->query($sql);
+		
+		$result = false;
+		if($save){
 			$result = true;
 		}
 		return $result;
@@ -121,6 +140,16 @@ class Usuario
 		}
 
 		return $result;
+	}
+
+	public function getAll(){
+		$usuarios = $this->db->query("SELECT id, nombre, apellidos, email, rol FROM usuarios;");
+		return $usuarios;
+	}
+
+	public function getOne(){
+		$usuario = $this->db->query("SELECT id, nombre, apellidos, email, rol, imagen FROM usuarios WHERE id = {$this->getId()}");
+		return $usuario->fetch_object();
 	}
 }
 ?>
