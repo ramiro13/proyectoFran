@@ -34,9 +34,8 @@ class usuarioController
 			$usuario->setId($id);
 
 			$usuarios = $usuario->getOne();
+		}
 
-		} 
-		
 		require_once 'views/usuario/crear.php';
 	}
 
@@ -124,15 +123,32 @@ class usuarioController
 				$usuarios->rol = $rol;
 				$usuarios->id = $id;
 
-				if($id === 0){
-				$save = $usuario->save();
+				// Guardar la imagen
+				if (isset($_FILES['imagen'])) {
+					$file = $_FILES['imagen'];
+					$filename = $file['name'];
+					$mimetype = $file['type'];
+
+					if ($mimetype == "image/jpg" || $mimetype == 'image/jpeg' || $mimetype == 'image/png' || $mimetype == 'image/gif') {
+
+						if (!is_dir('uploads/usuarios')) {
+							mkdir('uploads/usuarios', 0777, true);
+						}
+
+						$usuario->setImagen($filename);
+						$usuarios->imagen = $filename;
+
+						move_uploaded_file($file['tmp_name'], 'uploads/usuarios/' . $filename);
+					}
 				}
-				else{
+
+				if ($id === 0) {
+					$save = $usuario->save();
+				} else {
 					$save = $usuario->edit();
 				}
 				if ($save) {
 					$respuesta['mensaje'] = "complete";
-
 				} else {
 					$respuesta['mensaje'] = "failed";
 					$respuesta['esError'] = 1;
@@ -146,7 +162,7 @@ class usuarioController
 			$respuesta['esError'] = 1;
 		}
 
-		 require_once 'views/usuario/crear.php';
+		require_once 'views/usuario/crear.php';
 		// $this->editar();
 	}
 

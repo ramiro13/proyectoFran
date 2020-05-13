@@ -5,7 +5,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Consulta Usuarios
-            <a href="<?= base_url ?>usuario/editar" class="btn btn-warning btn-circle btn-sm">
+            <a href="<?= base_url ?>usuario/editar" class="btn btn-warning btn-circle btn-sm" title="Crear Nuevo">
                 <i class="fas fa-plus"></i>
             </a>
         </h6>
@@ -39,11 +39,11 @@
                             <td><?= $usu->email; ?></td>
                             <td><?= $usu->rol; ?></td>
                             <td>
-                                <a href="<?= base_url ?>usuario/ver&id=<?= $usu->id ?>" class="btn btn-info btn-circle btn-sm">
+                                <a href="<?= base_url ?>usuario/ver&id=<?= $usu->id ?>" class="btn btn-info btn-circle btn-sm" title="Ver">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
 
-                                <a href="<?= base_url ?>usuario/editar&id=<?= $usu->id ?>" class="btn btn-success btn-circle btn-sm">
+                                <a href="<?= base_url ?>usuario/editar&id=<?= $usu->id ?>" class="btn btn-success btn-circle btn-sm" title="Editar">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>

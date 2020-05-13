@@ -7,12 +7,12 @@
         <h6 class="m-0 font-weight-bold text-primary">Consulta Usuarios</h6>
     </div>
     <div class="card-body">
-        <form class="user" action="<?= base_url ?>usuario/saveCrud" method="post">
+        <form class="user" action="<?= base_url ?>usuario/saveCrud" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" id="id" value="<?= isset($usuarios) && is_object($usuarios) ? $usuarios->id : ''; ?>">
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <label for="nombre">Nombres</label>
-                    <input type="text" class="form-control " id="nombre" name="nombre" placeholder="Nombres" required value="<?= isset($usuarios) && is_object($usuarios) && isset($usuarios->nombre)? $usuarios->nombre : ''; ?>">
+                    <input type="text" class="form-control " id="nombre" name="nombre" placeholder="Nombres" required value="<?= isset($usuarios) && is_object($usuarios) && isset($usuarios->nombre) ? $usuarios->nombre : ''; ?>">
                 </div>
                 <div class="col-sm-6">
                     <label for="apellidos">Apellidos</label>
@@ -33,6 +33,15 @@
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <label for="password">Password</label>
                     <input type="password" class="form-control " id="password" name="password" placeholder="Password" required value="">
+                </div>
+
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="imagen">Imagen</label><br>
+                    <input type="file" name="imagen" id="imagen" />
+                    <?php if (isset($usuarios) && is_object($usuarios) && !empty($usuarios->imagen)) : ?>
+
+                        <img src="<?= base_url ?>uploads/usuarios/<?=$usuarios->imagen?>" class="rounded-circle" style="float:left; margin-right:10px; width:80px; height:80px; border:none;" />
+                    <?php endif; ?>
                 </div>
             </div>
             <?php if (isset($respuesta['mensaje']) && $respuesta['mensaje'] == 'complete') : ?>
