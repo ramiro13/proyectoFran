@@ -1,14 +1,14 @@
 <?php
-require_once 'models/categoria.php';
+require_once 'models/accion.php';
 
-class categoriaController
+class accionController
 {
 
 	public function index()
 	{
-		$categoria = new Categoria();
-		$categorias = $categoria->getAll();
-		require_once 'views/categoria/index.php';
+		$accion = new Accion();
+		$acciones = $accion->getAll();
+		require_once 'views/accion/index.php';
 	}
 
 	public function ver()
@@ -16,12 +16,12 @@ class categoriaController
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
 
-			$categoria = new categoria();
-			$categoria->setId($id);
+			$accion = new accion();
+			$accion->setId($id);
 
-			$categorias = $categoria->getOne();
+			$acciones = $accion->getOne();
 
-			require_once 'views/categoria/ver.php';
+			require_once 'views/accion/ver.php';
 		}
 	}
 
@@ -30,13 +30,13 @@ class categoriaController
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
 
-			$categoria = new categoria();
-			$categoria->setId($id);
+			$accion = new accion();
+			$accion->setId($id);
 
-			$categorias = $categoria->getOne();
+			$acciones = $accion->getOne();
 		}
 
-		require_once 'views/categoria/crear.php';
+		require_once 'views/accion/crear.php';
 	}
 
 	public function eliminar()
@@ -44,10 +44,10 @@ class categoriaController
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
 
-			$categoria = new categoria();
-			$categoria->setId($id);
+			$accion = new accion();
+			$accion->setId($id);
 
-			$categoria->delete();
+			$accion->delete();
 
 			$this->index();
 		} else {
@@ -65,23 +65,22 @@ class categoriaController
 		if (isset($_POST)) {
 
 			$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : "";
-			$id = isset($_POST['id']) && !empty($_POST['id']) ? $_POST['id'] : 0;
+			$id = isset($_POST['id']) && !empty($_POST['id'])? $_POST['id'] : 0;
 
 
 			if ($nombre) {
-				$categoria = new categoria();
-				$categoria->setNombre($nombre);
-				$categoria->setId($id);
+				$accion = new accion();
+				$accion->setNombre($nombre);
+				$accion->setId($id);
 
-				$categorias = new stdClass();
-				$categorias->nombre = $nombre;
-				$categorias->id = $id;
+				$acciones = new stdClass();
+				$acciones->nombre = $nombre;
+				$acciones->id = $id;
 
 				if ($id === 0) {
-					$save = $categoria->save($id);
-					
+					$save = $accion->save();
 				} else {
-					$save = $categoria->edit();
+					$save = $accion->edit();
 				}
 				if ($save) {
 					$respuesta['mensaje'] = "complete";
@@ -98,6 +97,6 @@ class categoriaController
 			$respuesta['esError'] = 1;
 		}
 
-		require_once 'views/categoria/crear.php';
+		require_once 'views/accion/crear.php';
 	}
 } // fin clase

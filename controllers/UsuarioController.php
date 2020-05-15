@@ -71,7 +71,7 @@ class usuarioController
 					$usuario->setPassword($password);
 					$usuario->setRol($rol);
 
-					$save = $usuario->save();
+					$save = $usuario->save($id);
 					if ($save) {
 						$_SESSION['register'] = "complete";
 					} else {
@@ -124,31 +124,36 @@ class usuarioController
 				$usuarios->id = $id;
 
 				// Guardar la imagen
-				if (isset($_FILES['imagen'])) {
-					$file = $_FILES['imagen'];
-					$filename = $file['name'];
-					$mimetype = $file['type'];
-
-					if ($mimetype == "image/jpg" || $mimetype == 'image/jpeg' || $mimetype == 'image/png' || $mimetype == 'image/gif') {
-
-						if (!is_dir('uploads/usuarios')) {
-							mkdir('uploads/usuarios', 0777, true);
-						}
-
-						$usuario->setImagen($filename);
-						$usuarios->imagen = $filename;
-
-						move_uploaded_file($file['tmp_name'], 'uploads/usuarios/' . $filename);
-					}
-				}
 
 				if ($id === 0) {
-					$save = $usuario->save();
+					$save = $usuario->save($id);
+					$usuario->setId($id);
 				} else {
 					$save = $usuario->edit();
 				}
 				if ($save) {
 					$respuesta['mensaje'] = "complete";
+
+					if (isset($_FILES['imagen'])) {
+						$file = $_FILES['imagen'];
+						$filename = $file['name'];
+						$mimetype = $file['type'];
+
+						if ($mimetype == "image/jpg" || $mimetype == 'image/jpeg' || $mimetype == 'image/png' || $mimetype == 'image/gif') {
+
+							if (!is_dir('uploads/usuarios')) {
+								mkdir('uploads/usuarios', 0777, true);
+							}
+
+							$filename = $id . "." . explode(".", $filename)[count(explode(".", $filename)) - 1];
+							$usuario->setImagen($filename);
+							$usuarios->imagen = $filename;
+
+							move_uploaded_file($file['tmp_name'], 'uploads/usuarios/' . $filename);
+
+							$usuario->edit();
+						}
+					}
 				} else {
 					$respuesta['mensaje'] = "failed";
 					$respuesta['esError'] = 1;

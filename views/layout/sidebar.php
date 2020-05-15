@@ -35,7 +35,7 @@
 					<h6 class="collapse-header">Custom Components:</h6>
 					<a class="collapse-item active" href="<?= base_url ?>usuario/index">Usuarios</a>
 					<a class="collapse-item" href="<?= base_url ?>categoria/index">Categorías</a>
-					<a class="collapse-item" href="<?= base_url ?>accion">Acciones</a>
+					<a class="collapse-item" href="<?= base_url ?>accion/index">Acciones</a>
 					<a class="collapse-item" href="<?= base_url ?>cliente">Clientes</a>
 				</div>
 			</div>

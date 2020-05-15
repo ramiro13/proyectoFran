@@ -1,6 +1,6 @@
 <?php
 
-class Categoria
+class Accion
 {
 	private $id;
 	private $nombre;
@@ -42,23 +42,22 @@ class Categoria
 		$this->activo = $activo;
 	}
 
-	public function save(&$id)
+	public function save()
 	{
         Utils::isAdmin();
-		$sql = "INSERT INTO categorias VALUES(NULL, '{$this->getNombre()}', 1);";
+		$sql = "INSERT INTO acciones VALUES(NULL, '{$this->getNombre()}', 1);";
 		$save = $this->db->query($sql);
 
 		$result = false;
 		if ($save) {
 			$result = true;
-			$id = $this->db->insert_id;
 		}
 		return $result;
 	}
 
 	public function edit(){
         Utils::isAdmin();
-		$sql = "UPDATE categorias SET nombre='{$this->getNombre()}' ";
+		$sql = "UPDATE acciones SET nombre='{$this->getNombre()}' ";
 		
 		$sql .= " WHERE id={$this->id};";
 		$save = $this->db->query($sql);
@@ -71,7 +70,7 @@ class Categoria
     }
     
     public function delete(){
-		$sql = "UPDATE categorias SET activo = 0 ";
+		$sql = "UPDATE acciones SET activo = 0 ";
 		
 		$sql .= " WHERE id={$this->id};";
 		$save = $this->db->query($sql);
@@ -84,12 +83,13 @@ class Categoria
 	}
 
 	public function getAll(){
-		$usuarios = $this->db->query("SELECT id, nombre FROM categorias where activo = 1;");
+		$usuarios = $this->db->query("SELECT id, nombre FROM acciones where activo = 1;");
 		return $usuarios;
 	}
 
 	public function getOne(){
-		$usuario = $this->db->query("SELECT id, nombre FROM categorias WHERE id = {$this->getId()}");
+		$usuario = $this->db->query("SELECT id, nombre FROM acciones WHERE id = {$this->getId()}");
 		return $usuario->fetch_object();
 	}
 }
+?>

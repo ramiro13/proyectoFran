@@ -1,0 +1,1 @@
+CREATE TABLE `tienda_master`.`acciones` ( `id` SERIAL NOT NULL , `nombre` VARCHAR(200) NOT NULL , `activo` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
