@@ -9,7 +9,7 @@
     <div class="card-body">
         <form class="user" action="<?= base_url ?>usuario/saveCrud" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" id="id" value="<?= isset($usuarios) && is_object($usuarios) ? $usuarios->id : ''; ?>">
-            <div class="form-group row">
+            <div class="form-group row md-2">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <label for="nombre">Nombres</label>
                     <input type="text" class="form-control " id="nombre" name="nombre" placeholder="Nombres" required value="<?= isset($usuarios) && is_object($usuarios) && isset($usuarios->nombre) ? $usuarios->nombre : ''; ?>">
