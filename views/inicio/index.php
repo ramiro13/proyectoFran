@@ -8,11 +8,11 @@
     <?php while ($cat = $categorias->fetch_object()) : ?>
 
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-2">
-            <a href="#" data-toggle="modal" data-target="#exampleModalScrollable" class="btn btn-info btn-icon-split" onclick="$('#id').val(<?= $cat->id; ?>);">
-                <span class="icon text-white-50">
-                    <i class="far fa-eye"></i>
+            <a href="#" style="min-width: 80%; max-width: 80%" data-toggle="modal" data-target="#exampleModalScrollable" class="btn btn-info btn-icon-split" onclick="$('#id').val(<?= $cat->id; ?>); $('#categoriaModal').val('<?= $cat->nombre; ?>');">
+                <span class="icon text-white-50 float-left">
+                    <i class="far fa-eye float-left"></i>
                 </span>
-                <span class="text"><?= $cat->nombre; ?></span>
+                <span class="text" style="width: 100%"><?= $cat->nombre; ?></span>
             </a>
         </div>
     <?php endwhile; ?>
@@ -32,7 +32,11 @@
 
                 <div class="modal-body">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <input type="text" class="form-control " id="id" name="id" value="">
+                        <div class="mb-2">
+                            <label for="categoria">Categoría</label>
+                            <input type="text" class="form-control " id="categoriaModal" name="categoriaModal" value="" disabled>
+                            <input type="hidden" class="form-control " id="id" name="id" value="">
+                        </div>
                         <div class="mb-2">
                             <label for="cliente">Nombre Cliente</label>
                             <input type="text" class="form-control " id="cliente" name="cliente" placeholder="Nombre Cliente" required value="<?= isset($usuarios) && is_object($usuarios) && isset($usuarios->nombre) ? $usuarios->nombre : ''; ?>">
