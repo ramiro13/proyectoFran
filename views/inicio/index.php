@@ -8,7 +8,7 @@
     <?php while ($cat = $categorias->fetch_object()) : ?>
 
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-2">
-            <a href="#" style="min-width: 80%; max-width: 80%" data-toggle="modal" data-target="#exampleModalScrollable" class="btn btn-info btn-icon-split" onclick="$('#id').val(<?= $cat->id; ?>); $('#categoriaModal').val('<?= $cat->nombre; ?>');">
+            <a href="#" style="min-width: 100%; max-width: 80%" data-toggle="modal" data-target="#exampleModalScrollable" class="btn btn-info btn-icon-split" onclick="$('#id').val(<?= $cat->id; ?>); $('#categoriaModal').val('<?= $cat->nombre; ?>');">
                 <span class="icon text-white-50 float-left">
                     <i class="far fa-eye float-left"></i>
                 </span>
