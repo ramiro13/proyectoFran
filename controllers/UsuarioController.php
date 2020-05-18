@@ -173,6 +173,8 @@ class usuarioController
 
 	public function login()
 	{
+		if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+		
 		if (isset($_POST)) {
 			// Identificar al usuario
 			// Consulta a la base de datos

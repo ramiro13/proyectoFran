@@ -16,7 +16,7 @@ class servicioController
 		if (!isset($_SESSION['admin']) || (isset($_SESSION['admin']) && $_SESSION['admin'] === false)) {
 
 			$servicio = new Servicio();
-			
+
 			$idCategoria = 0;
 			$categoriaModal = "";
 
@@ -25,9 +25,15 @@ class servicioController
 
 			$horaInicio->setTimezone($tz_object);
 
-			if(isset($_POST['categoriaModal']) && !empty($_POST['categoriaModal'])){
+			if (isset($_POST['categoriaModal']) && !empty($_POST['categoriaModal'])) {
 				$idCategoria = $_POST['id'];
 				$categoriaModal = $_POST['categoriaModal'];
+				$cliente = $_POST['cliente'];
+
+				require_once 'models/accion.php';
+
+				$accion = new Accion();
+				$acciones = $accion->getAll();
 			}
 
 			$servicios = $servicio->getByCategoria($idCategoria);
@@ -125,5 +131,67 @@ class servicioController
 		}
 
 		require_once 'views/servicio/crear.php';
+	}
+
+	public function saveActions()
+	{
+		if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+
+		$respuesta['mensaje'] = "";
+		$respuesta['esError'] = 0;
+
+		if (isset($_POST)) {
+
+			$idCategoria = $_POST['idCategoria'];
+			$categoriaModal = $_POST['categoriaModal'];
+			$cliente = $_POST['cliente'];
+			$inicio = $_POST['inicio'];
+			$accionModal = $_POST['accionModal'];
+
+			$tz_object = new DateTimeZone(DateTimeZone_default);
+			$horaFin = new DateTime();
+
+			$horaFin->setTimezone($tz_object);
+
+			if ($idCategoria) {
+				require_once 'models/servicioCliente.php';
+				$servicio = new ServicioCliente();
+				$servicio->setIdCategoria($idCategoria);
+				$servicio->setCategoria($categoriaModal);
+				$servicio->setCliente($cliente);
+				$servicio->setInicio($inicio);
+				$servicio->setFin(date_format($horaFin, 'Y-m-d H:i:s'));
+				$servicio->setUsuario($_SESSION['identity']->email);
+				$servicio->setTiempo(strtotime($inicio) - strtotime(date_format($horaFin, 'Y-m-d H:i:s')));
+				$save = $servicio->save($id);
+
+				if ($save) {
+					$servicio->setId($id);
+
+					foreach ($accionModal as $item) {
+						$seleccion = 'accionSelected' . $item;
+						if (isset($_POST[$seleccion]) && $_POST[$seleccion] === "on") {
+							$save = $servicio->saveAccion($item);
+						}
+					}
+
+					if ($save) {
+						$respuesta['mensaje'] = "complete";
+					}
+				} else {
+					$respuesta['mensaje'] = "failed";
+					$respuesta['esError'] = 1;
+				}
+			} else {
+				$respuesta['mensaje'] = "failed";
+				$respuesta['esError'] = 1;
+			}
+		} else {
+			$respuesta['mensaje'] = "failed";
+			$respuesta['esError'] = 1;
+		}
+
+		$inicio = new inicioController();
+		$inicio->index();
 	}
 } // fin clase
