@@ -162,7 +162,7 @@ class servicioController
 				$servicio->setInicio($inicio);
 				$servicio->setFin(date_format($horaFin, 'Y-m-d H:i:s'));
 				$servicio->setUsuario($_SESSION['identity']->email);
-				$servicio->setTiempo(strtotime($inicio) - strtotime(date_format($horaFin, 'Y-m-d H:i:s')));
+				$servicio->setTiempo(strtotime(date_format($horaFin, 'Y-m-d H:i:s')) - strtotime($inicio));
 				$save = $servicio->save($id);
 
 				if ($save) {
