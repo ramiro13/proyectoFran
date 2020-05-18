@@ -8,7 +8,7 @@
     <?php while ($cat = $categorias->fetch_object()) : ?>
 
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-2">
-            <a href="#" style="min-width: 100%; max-width: 80%" data-toggle="modal" data-target="#exampleModalScrollable" class="btn btn-info btn-icon-split" onclick="$('#id').val(<?= $cat->id; ?>); $('#categoriaModal').val('<?= $cat->nombre; ?>');">
+            <a href="#" style="min-width: 100%; max-width: 80%" data-toggle="modal" data-target="#exampleModalScrollable" class="btn btn-info btn-icon-split" onclick="$('#id').val(<?= $cat->id; ?>); $('.categoriaModal').val('<?= $cat->nombre; ?>');">
                 <span class="icon text-white-50 float-left">
                     <i class="far fa-eye float-left"></i>
                 </span>
@@ -18,9 +18,11 @@
     <?php endwhile; ?>
 </div>
 
+
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <form method="post" action="<?= base_url ?>servicio/index">
+    <form method="post" action="<?= base_url ?>servicio/indexUsuario">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -34,8 +36,9 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="mb-2">
                             <label for="categoria">Categoría</label>
-                            <input type="text" class="form-control " id="categoriaModal" name="categoriaModal" value="" disabled>
+                            <input type="text" class="form-control categoriaModal" id="categoriaModal" name="categoriaModal" value="" disabled>
                             <input type="hidden" class="form-control " id="id" name="id" value="">
+                            <input type="hidden" class="form-control categoriaModal" id="categoriaModal" name="categoriaModal" value="">
                         </div>
                         <div class="mb-2">
                             <label for="cliente">Nombre Cliente</label>

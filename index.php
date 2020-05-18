@@ -32,6 +32,7 @@ require_once 'helpers/utils.php';
 <body id="page-top" <?= !isset($_SESSION['identity']) ? "class='bg-gradient-primary'" : ""; ?>>
     <?php
 
+    header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
     function show_error()
     {
         $error = new errorController();
